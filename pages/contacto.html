@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <title>Casacas FC</title>
+</head>
+<body data-bs-theme="light">
+    <header>
+        <div>
+            <h3>CASACAS FC</h3>
+        </div>
+        <input type="checkbox" id="nav_check" hidden> 
+        <nav>
+            <ul>
+                <li>
+                    <a href="../index.html" class="active">Inicio</a>
+                </li>
+                <li>
+                    <a href="./camisetas.html">Camisetas</a>
+                </li>
+                <li>
+                    <a href="./contacto.html">Contacto</a>
+                </li>
+                <li>
+                    <a href="./carrito.html"><i class="bi bi-cart-fill"></i></a>
+                </li>
+                <li>
+                    <a class="bi bi-brightness-high-fill" id="modoOscuro"></a>
+                </li>
+            </ul>
+        </nav>
+        <label for="nav_check" class="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </label>
+    </header>
+    <main class="contacto">
+
+        <form>
+            <h2>Contacto</h2>
+            <div class="input-group">
+                <label for="name">Nombre</label>
+                <input type="text" name="name" id="name" placeholder="Nombre" required>
+                <div id="nameError" class="error-message"></div>
+
+                <label for="phone">Teléfono</label>
+                <input type="tel" name="phone" id="phone" placeholder="Teléfono" required>
+                <div id="phoneError" class="error-message"></div>
+
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Email" required>
+                <div id="emailError" class="error-message"></div>
+
+                <label for="message">Mensaje</label>
+                <textarea name="message" id="message" cols="30" rows="5" placeholder="Mensaje" required></textarea>
+                <div id="messageError" class="error-message"></div>
+
+                <div class="form-txt">
+                    <a href="#">Política de Privacidad</a>
+                    <a href="#">Términos y condiciones</a>
+                </div>
+
+                <input class="btn-contacto" type="submit" value="Enviar">
+                <input type="hidden" name="_next" value="http://127.0.0.1:5500/pages/contacto.html">
+                <input type="hidden" name="_captcha" value="false">
+            </div>
+        </form>
+
+    </main>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col" id="company">
+                    <h2>CASACAS FC</h2>
+                    <p>
+                        Tu camiseta te espera...
+                    </p>
+                </div>
+
+                <div class="col" id="services">
+                    <h3>Redes</h3>
+                    <div class="links">
+                        <a href="#">Facebook <i class="bi bi-facebook"></i></a>
+                        <a href="#">Instagram <i class="bi bi-instagram"></i></a>
+                        <a href="#">Whatsapp <i class="bi bi-whatsapp"></i></a>
+                        <a href="#">Gmail <i class="bi bi-envelope-at-fill"></i></a>
+                    </div>
+                </div>
+
+                <div class="col" id="contact">
+                    <h3>Ubicacion <i class="bi bi-geo-alt"></i></h3>
+                    <div class="contact-details">
+                        <i class="fa fa-location"></i>
+                        <p>25 de Mayo 2255 <br> SANTA FE, ARGENTINA</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="../main.js"></script>
+    
+</body>
+</html>
