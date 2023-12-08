@@ -26,7 +26,7 @@
                     <a href="./contacto.html">Contacto</a>
                 </li>
                 <li>
-                    <a href="./carrito.html"><i class="bi bi-cart-fill"></i></a>
+                    <a href="./carrito.html" class="carrito-numero" id="numerito">0<i class="bi bi-cart-fill"></i></a>
                 </li>
                 <li>
                     <a class="bi bi-brightness-high-fill" id="modoOscuro"></a>
@@ -39,85 +39,30 @@
             <div></div>
         </label>
     </header>
-    <main class="ubi-carrito">
+    <main>
         <div class="carrito" id="carrito">
             <div class="header-carrito">
                 <h2>Tu Carrito</h2>
             </div>
-            <div class="carrito items">
-                <div class="carrito-item">
-                    <img src="../img/image_7ccdd99b-17d1-4e03-9669-3ed4b4db5e10.webp" alt="" width="80px">
-                    <div class="carrito-item-detalles">
-                        <span class="carrito-item-titulo">Selección Argentina</span>
-                        <div class="selector-cantidad">
-                            <i class="bi bi-dash-square restar-cantidad"></i>
-                            <input type="text" value="1" class="carrito-item-cantidad" disabled>
-                            <i class="bi bi-plus-square sumar-cantidad"></i>
-                        </div>
-                        <span class="carrito-item-precio">$25000</span>
-                    </div>
-                    <span class="btn-eliminar">
-                        <i class="bi bi-trash3-fill"></i>
-                    </span>
-                </div>
-        
-                <div class="carrito-item">
-                    <img src="../img/river.webp" alt="" width="80px">
-                    <div class="carrito-item-detalles">
-                        <span class="carrito-item-titulo">River Plate</span>
-                        <div class="selector-cantidad">
-                            <i class="bi bi-dash-square restar-cantidad"></i>
-                            <input type="text" value="2" class="carrito-item-cantidad" disabled>
-                            <i class="bi bi-plus-square sumar-cantidad"></i>
-                        </div>
-                        <span class="carrito-item-precio">$25000</span>
-                    </div>
-                    <span class="btn-eliminar">
-                        <i class="bi bi-trash3-fill"></i>
-                    </span>
-                </div>
-        
-                <div class="carrito-item">
-                    <img src="../img/boca.webp" alt="" width="80px">
-                    <div class="carrito-item-detalles">
-                        <span class="carrito-item-titulo">Boca Juniors</span>
-                        <div class="selector-cantidad">
-                            <i class="bi bi-dash-square restar-cantidad"></i>
-                            <input type="text" value="3" class="carrito-item-cantidad" disabled>
-                            <i class="bi bi-plus-square sumar-cantidad"></i>
-                        </div>
-                        <span class="carrito-item-precio">$25000</span>
-                    </div>
-                    <span class="btn-eliminar">
-                        <i class="bi bi-trash3-fill"></i>
-                    </span>
-                </div>
-        
-                <div class="carrito-item">
-                    <img src="../img/INTER MIAMI.webp" alt="" width="80px">
-                    <div class="carrito-item-detalles">
-                        <span class="carrito-item-titulo">Inter Miami</span>
-                        <div class="selector-cantidad">
-                            <i class="bi bi-dash-square restar-cantidad"></i>
-                            <input type="text" value="4" class="carrito-item-cantidad" disabled>
-                            <i class="bi bi-plus-square sumar-cantidad"></i>
-                        </div>
-                        <span class="carrito-item-precio">$25000</span>
-                    </div>
-                    <span class="btn-eliminar">
-                        <i class="bi bi-trash3-fill"></i>
-                    </span>
-                </div>
+            <div>
+                <h5 id="carrito-vacio">Tu carrito esta vacío.</h5>
             </div>
-        
-            <div class="carrito-total">
+            <div class="carrito items disabled" id="carrito-productos">
+            <div class="vaciar-carrito disabled" id="carrito-acciones">
+                <small>Vaciar carrito</small>
+            </div>
+            <div class="carrito-total disabled">
                 <div class="fila">
                     <strong>Total</strong>
                     <span
-                    class="carrito-precio-total">$100.000
-                </span>
+                    class="carrito-precio-total"></span>
                 </div>
-                <button class="btn-pagar">Pagar <i class="bi bi-bag-check-fill"></i></button>
+                <div>
+                    <button class="btn-pagar">Pagar <i class="bi bi-bag-check-fill"></i></button>
+                </div>
+                <div>
+                    <p class="carrito-comprado disabled" id="carrito-comprado">Muchas gracias por su compra!</p>
+                </div>
             </div>
         </div>
     </main>
@@ -153,6 +98,7 @@
         </div>
     </footer>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="../carrito.js"></script>
 <script src="../main.js"></script>
     
 </body>

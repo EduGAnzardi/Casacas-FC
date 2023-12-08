@@ -40,27 +40,33 @@ toggle.addEventListener('click', function(){
 
 const productosArray = [
     {
-        id: "camiseta-Argentina-1",
+        id: "camiseta-1",
         titulo: "Selección Argentina",
         imagen: "../img/image_7ccdd99b-17d1-4e03-9669-3ed4b4db5e10.webp", 
         precio: "25.000",
     },
     {
-        id: "camiseta-Argentina-2",
-        titulo: "Selección Argentina",
-        imagen: "../img/image_7ccdd99b-17d1-4e03-9669-3ed4b4db5e10.webp", 
+        id: "camiseta-2",
+        titulo: "River Plate",
+        imagen: "../img/river.webp", 
         precio: "25.000"
     },
     {
-        id: "camiseta-Argentina-3",
-        titulo: "Selección Argentina",
-        imagen: "../img/image_7ccdd99b-17d1-4e03-9669-3ed4b4db5e10.webp", 
+        id: "camiseta-3",
+        titulo: "Boca Juniors",
+        imagen: "../img/boca.webp", 
         precio: "25.000"
     },
     {
-        id: "camiseta-Argentina-4",
-        titulo: "Selección Argentina",
-        imagen: "../img/image_7ccdd99b-17d1-4e03-9669-3ed4b4db5e10.webp", 
+        id: "camiseta-4",
+        titulo: "Inter Miami",
+        imagen: "../img/INTER MIAMI.webp", 
+        precio: "25.000"
+    },
+    {
+        id: "camiseta-5",
+        titulo: "Real Madrid",
+        imagen: "../img/real madrid.webp", 
         precio: "25.000"
     }
 ];   
@@ -68,14 +74,15 @@ const productosArray = [
 
 
 const contenedorProductos = document.querySelector("#contenedor-productos");
-
-cargarProductos(productosArray);
+const carrito = [];
+const carritoNumero = document.querySelector(".carrito-numero");
+const productosEnCarrito = [];
+const numerito = document.querySelector("#numerito");
 
 function cargarProductos(productos) {
     productos.forEach(producto => {
-
         const div = document.createElement("div");
-        div.classList.add("gallery","content");
+        div.classList.add("gallery", "content");
         div.innerHTML = `
             <img src="${producto.imagen}" alt="${producto.titulo}">
             <h3>Camiseta</h3>
@@ -85,55 +92,142 @@ function cargarProductos(productos) {
         </div>`;
 
         contenedorProductos.appendChild(div);
+
+        const botonAgregar = div.querySelector(`#${producto.id}`);
+        botonAgregar.addEventListener("click", (e) => agregarAlCarrito(productosArray, producto, e));
     });
 }
 
+function agregarAlCarrito(productos, producto, evento) {
+    const idBoton = evento.currentTarget.id;
+    const productoAgregado = productos.find(p => p.id === idBoton);
+
+    if(productosEnCarrito.some(producto => producto.id === idBoton)) {
+        const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
+        productosEnCarrito[index].cantidad++;
+    } else {
+        productoAgregado.cantidad = 1;
+        productosEnCarrito.push(productoAgregado);
+    }
+
+    actualizarNumerito();
+    localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
+};
+
+function actualizarNumerito() {
+    let nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
+    numerito.innerText = nuevoNumerito;
+}
+
+cargarProductos(productosArray);
 
 
-
-
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('.contacto form');
-    form.addEventListener('submit', function (event) {
-
-        // Reiniciar mensajes de error
-        const mensajesError = document.querySelectorAll('.error-message');
-        mensajesError.forEach(errorMsg => errorMsg.textContent = '');
-
-        // Validar nombre (permitir enviar si tiene al menos 3 letras)
-        const nombre = form.querySelector('#name').value.trim();
-        if (nombre.length <= 2) {
-            valido = false;
-            console.error('Error en nombre');
-            document.getElementById('nameError').textContent = 'El nombre debe tener al menos 3 caracteres.';
-        }
-
-        // Validar número de teléfono (validación simple, podrías mejorarla)
-        const telefono = form.querySelector('#phone').value.trim();
-        if (!/^\d{9,15}$/.test(telefono)) {
-            valido = false;
-            console.error('Error en teléfono');
-            document.getElementById('phoneError').textContent = 'Ingrese un número de teléfono válido (entre 9 y 15 dígitos).';
-        }
-
-        // Validar correo electrónico
-        const correo = form.querySelector('#email').value.trim();
-        if (!correo.includes('@')) {
-            valido = false;
-            console.error('Error en correo electrónico');
-            document.getElementById('emailError').textContent = 'Ingrese una dirección de correo electrónico válida.';
-        }
-
-        // Validar mensaje
-        const mensaje = form.querySelector('#message').value.trim();
-        if (mensaje.length < 5) {
-            valido = false;
-            console.error('Error en mensaje');
-            document.getElementById('messageError').textContent = 'El mensaje debe tener al menos 5 caracteres.';
-        }
-
-        if (!valido) {
-            event.preventDefault(); // Evitar el envío del formulario si falla la validación
-        }
-    });
+document.addEventListener("DOMContentLoaded", () => {
+    const productosEnCarritoGuardados = JSON.parse(localStorage.getItem("productos-en-carrito")) || [];
+    productosEnCarrito.push(...productosEnCarritoGuardados);
+    actualizarNumerito();
+    cargarProductosEnCarrito();
 });
+
+// Agregar evento al botón de vaciar carrito
+const vaciarCarritoBtn = document.querySelector("#carrito-acciones small");
+vaciarCarritoBtn.addEventListener("click", vaciarCarrito);
+
+// Función para vaciar el carrito
+function vaciarCarrito() {
+    productosEnCarrito.length = 0;
+    actualizarNumerito();
+    guardarProductosEnCarrito();
+    cargarProductosEnCarrito();
+}
+
+// Función para cargar productos en el carrito al cargar la página
+function cargarProductosEnCarrito() {
+    const carritoProductosDiv = document.querySelector("#carrito-productos");
+    carritoProductosDiv.innerHTML = "";
+
+    if (productosEnCarrito.length === 0) {
+        document.getElementById("carrito-vacio").classList.remove("disabled");
+    } else {
+        document.getElementById("carrito-vacio").classList.add("disabled");
+        document.getElementById("carrito-productos").classList.remove("disabled");
+
+        productosEnCarrito.forEach(producto => {
+            const div = document.createElement("div");
+            div.classList.add("carrito-item");
+            div.innerHTML = `<img src="${producto.imagen}" alt="${producto.titulo}" width="80px">
+                <div class="carrito-item-detalles">
+                    <span class="carrito-item-titulo">${producto.titulo}</span>
+                    <div class="selector-cantidad">
+                        <i class="bi bi-dash-square restar-cantidad"></i>
+                        <p>${producto.cantidad}</p>
+                        <i class="bi bi-plus-square sumar-cantidad"></i>
+                    </div>
+                    <span class="carrito-item-precio">${producto.precio}</span>
+                </div>
+                <span class="btn-eliminar" id="${producto.id}">
+                    <i class="bi bi-trash3-fill"></i>
+                </span>`;
+
+            carritoProductosDiv.appendChild(div);
+        });
+    }
+}
+
+// Función para guardar productos en el carrito en el localStorage
+function guardarProductosEnCarrito() {
+    localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
+}
+
+
+// Evento para sumar o restar cantidad desde el carrito
+document.getElementById("carrito-productos").addEventListener("click", (event) => {
+    const target = event.target;
+
+    if (target.classList.contains("restar-cantidad")) {
+        restarCantidad(target);
+    } else if (target.classList.contains("sumar-cantidad")) {
+        sumarCantidad(target);
+    } else if (target.classList.contains("btn-eliminar")) {
+        eliminarProducto(target);
+    }
+});
+
+// Función para restar la cantidad de un producto en el carrito
+function restarCantidad(element) {
+    const id = element.parentElement.parentElement.parentElement.querySelector(".btn-eliminar").id;
+    const producto = productosEnCarrito.find(p => p.id === id);
+
+    if (producto && producto.cantidad > 1) {
+        producto.cantidad--;
+        actualizarNumerito();
+        guardarProductosEnCarrito();
+        cargarProductosEnCarrito();
+    }
+}
+
+// Función para sumar la cantidad de un producto en el carrito
+function sumarCantidad(element) {
+    const id = element.parentElement.parentElement.parentElement.querySelector(".btn-eliminar").id;
+    const producto = productosEnCarrito.find(p => p.id === id);
+
+    if (producto) {
+        producto.cantidad++;
+        actualizarNumerito();
+        guardarProductosEnCarrito();
+        cargarProductosEnCarrito();
+    }
+}
+
+// Función para eliminar un producto del carrito
+function eliminarProducto(element) {
+    const id = element.id;
+    const index = productosEnCarrito.findIndex(p => p.id === id);
+
+    if (index !== -1) {
+        productosEnCarrito.splice(index, 1);
+        actualizarNumerito();
+        guardarProductosEnCarrito();
+        cargarProductosEnCarrito();
+    }
+}
