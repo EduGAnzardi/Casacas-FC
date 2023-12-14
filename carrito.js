@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const contenedorCarritoAcciones = document.querySelector("#carrito-acciones");
     const contenedorCarritoComprado = document.querySelector("#carrito-comprado");
 
-    // Obtener productos del carrito desde el localStorage
+
     let productosEnCarrito = JSON.parse(localStorage.getItem("productos-en-carrito")) || [];
 
     if (productosEnCarrito.length > 0) {
@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             carritoProductosDiv.appendChild(div);
 
-            // Agregar eventos a los botones de eliminar, sumar y restar
+
             const btnEliminar = div.querySelector(".btn-eliminar");
             btnEliminar.addEventListener("click", () => eliminarProducto(producto.id));
 
@@ -47,29 +47,29 @@ document.addEventListener("DOMContentLoaded", () => {
             btnSumar.addEventListener("click", () => sumarCantidad(producto.id));
         });
     } else {
-        // El carrito está vacío, puedes manejarlo aquí si es necesario
+
     }
 });
 
-// Función para eliminar un producto del carrito
+
 function eliminarProducto(idProducto) {
     let productosEnCarrito = JSON.parse(localStorage.getItem("productos-en-carrito")) || [];
 
-    // Encontrar el índice del producto con el ID especificado
+
     const index = productosEnCarrito.findIndex(producto => producto.id === idProducto);
 
     if (index !== -1) {
-        // Eliminar el producto del array
+
         productosEnCarrito.splice(index, 1);
 
-        // Guardar los nuevos productos en el localStorage
+
         localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
 
-        // Volver a cargar los productos en el carrito
+
         cargarProductosEnCarrito();
     }
 }
-// Función para restar una unidad de la cantidad de un producto en el carrito
+
 function restarCantidad(idProducto) {
     let productosEnCarrito = JSON.parse(localStorage.getItem("productos-en-carrito")) || [];
 
@@ -78,15 +78,15 @@ function restarCantidad(idProducto) {
     if (producto && producto.cantidad > 1) {
         producto.cantidad--;
 
-        // Guardar los nuevos productos en el localStorage
+
         localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
 
-        // Volver a cargar los productos en el carrito
+
         cargarProductosEnCarrito();
     }
 }
 
-// Función para sumar una unidad a la cantidad de un producto en el carrito
+
 function sumarCantidad(idProducto) {
     let productosEnCarrito = JSON.parse(localStorage.getItem("productos-en-carrito")) || [];
 
@@ -95,15 +95,15 @@ function sumarCantidad(idProducto) {
     if (producto) {
         producto.cantidad++;
 
-        // Guardar los nuevos productos en el localStorage
+
         localStorage.setItem("productos-en-carrito", JSON.stringify(productosEnCarrito));
 
-        // Volver a cargar los productos en el carrito
+
         cargarProductosEnCarrito();
     }
 }
 
-// Función para cargar productos en el carrito al cargar la página
+
 function cargarProductosEnCarrito() {
     const carritoProductosDiv = document.querySelector("#carrito-productos");
     carritoProductosDiv.innerHTML = "";
@@ -135,7 +135,7 @@ function cargarProductosEnCarrito() {
 
             carritoProductosDiv.appendChild(div);
 
-            // Agregar eventos a los botones de eliminar, sumar y restar
+            
             const btnEliminar = div.querySelector(".btn-eliminar");
             btnEliminar.addEventListener("click", () => eliminarProducto(producto.id));
 
